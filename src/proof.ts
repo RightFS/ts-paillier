@@ -40,7 +40,7 @@ const STATISTICAL_ERROR_FACTOR = 8;
 //   const bits = getBits([0xf0, 0x11]);
 //   console.log('bits: ', bits); // 1111000010001
 // tested
-export function getBits(data: number[]): string {
+function getBits(data: number[]): string {
     let bits = "";
     for (let i = 0; i < data.length; i++) {
         bits += data[i].toString(2);
@@ -48,7 +48,7 @@ export function getBits(data: number[]): string {
     return bits;
 }
 // tested
-export function computeDigest(vec: bigint[]): number[] {
+function computeDigest(vec: bigint[]): number[] {
     const sha256 = createHash('sha256');
     for (let i = 0; i < vec.length; i++) {
         sha256.update(vec[i].toString(16));
@@ -100,7 +100,7 @@ function generateProof(ek: EncryptionKey, secret_x: bigint, secret_r: bigint, e:
     }
     return responses;
 }
-export function prover(ek: EncryptionKey, range: bigint, secret_x: bigint): { encrypted_pairs: EncryptedPairs, challenge_bits: number[], proof: Proof, range: bigint, cipher_x: bigint } {
+export default function prover(ek: EncryptionKey, range: bigint, secret_x: bigint): { encrypted_pairs: EncryptedPairs, challenge_bits: number[], proof: Proof, range: bigint, cipher_x: bigint } {
     // const secret_r = sampleBelow(ek.n);
     const secret_r = 100000000000000000000000000000000n;
     const cipher_x = ek.encrypt(secret_x, secret_r)
